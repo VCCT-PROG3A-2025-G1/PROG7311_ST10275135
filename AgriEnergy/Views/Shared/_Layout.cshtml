@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AgriEnergy</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-success" asp-controller="Home" asp-action="Index">AgriEnergy 🌱</a>
+            <div>
+                <a class="btn btn-success me-2" asp-controller="Account" asp-action="Login">Login</a>
+                <a class="btn btn-outline-success" asp-controller="Account" asp-action="Register">Register</a>
+            </div>
+        </div>
+        @if (User.IsInRole("Farmer"))
+        {
+            <li><a asp-controller="Farmer" asp-action="MyProducts">My Products</a></li>
+        }
+
+    </nav>
+
+    <div class="container">
+        @RenderBody()
+        @RenderSection("Scripts", required: false)
+    </div>
+
+    <footer class="text-center border-top mt-5 py-3">
+        &copy; 2025 - AgriEnergy - <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none">Privacy</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>

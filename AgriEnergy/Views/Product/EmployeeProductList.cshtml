@@ -1,0 +1,41 @@
+﻿@model List<AgriEnergy.Models.Product>
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h2>Filtered Products</h2>
+
+<form method="get">
+    <label>Category</label>
+    <input type="text" name="category" />
+
+    <label>Start Date</label>
+    <input type="date" name="startDate" />
+
+    <label>End Date</label>
+    <input type="date" name="endDate" />
+
+    <button type="submit">Filter</button>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Production Date</th>
+            <th>Farmer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Category</td>
+                <td>@item.ProductionDate.ToShortDateString()</td>
+                <td>@item.Farmer?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

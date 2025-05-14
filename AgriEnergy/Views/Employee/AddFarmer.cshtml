@@ -1,0 +1,27 @@
+﻿@model Farmer
+
+@{
+    ViewData["Title"] = "Add Farmer";
+}
+
+<h2>Add Farmer</h2>
+
+<!-- Show model validation errors -->
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<form asp-action="AddFarmer" method="post">
+    <label>Name</label>
+    <input type="text" name="Name" class="form-control" />
+
+    <label>Location</label>
+    <input type="text" name="Location" class="form-control" />
+
+    <label>Select User</label>
+    <select name="UserId" class="form-control">
+        @foreach (var user in (List<SelectListItem>)ViewBag.UserList)
+        {
+            <option value="@user.Value">@user.Text</option>
+        }
+    </select>
+
+    <button type="submit">Add Farmer</button>
+</form>

@@ -1,0 +1,17 @@
+﻿@model Product
+
+<form asp-action="AddProduct" method="post">
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" />
+    </div>
+    <div>
+        <label>Category</label>
+        <input asp-for="Category" />
+    </div>
+    <div>
+        <label>Production Date</label>
+        <input asp-for="ProductionDate" type="date" />
+    </div>
+    <button type="submit">Add Product</button>
+</form>

@@ -1,0 +1,22 @@
+﻿
+<h2>Products for @Model.FarmerName</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Production Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Category</td>
+                <td>@product.ProductionDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

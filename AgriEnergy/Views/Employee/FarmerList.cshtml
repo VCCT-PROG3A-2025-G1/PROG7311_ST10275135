@@ -1,0 +1,23 @@
+﻿@model List<Farmer>
+
+<h2>List of Farmers</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>User ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var farmer in Model)
+        {
+            <tr>
+                <td>@farmer.Name</td>
+                <td>@farmer.Location</td>
+                <td>@farmer.UserId</td>
+            </tr>
+        }
+    </tbody>
+</table>
