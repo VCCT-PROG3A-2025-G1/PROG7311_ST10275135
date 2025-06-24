@@ -1,6 +1,17 @@
  Agri-Energy Connect Platform
+Updates 
+Updated models (Farmer, Product, ApplicationUser) to support proper data types.
+Login Page Fixes
+Fixed redirection after login to ensure users land on the correct dashboard.
+Added support for role detection (Farmer or Employee) in AccountController.
+Products Page Fixes
+Farmers can their products.
+Employees can view all farmers and filter products by:
+Farmer
+Category
+Production date range
 
- Overview
+Overview
 This is a web-based prototype application for the Agri-Energy Connect Platform. It allows Farmers and Employees to manage agricultural product data using a secure login system.
 
 The app is built using:
