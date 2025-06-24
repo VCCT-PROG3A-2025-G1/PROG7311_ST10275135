@@ -19,9 +19,7 @@ public class ProductController : Controller
         _userManager = userManager;
     }
 
-    // =======================
-    // FARMER: Add Product
-    // =======================
+    [HttpGet]
     [Authorize(Roles = "Farmer")]
     public IActionResult Add()
     {
@@ -33,49 +31,38 @@ public class ProductController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Add(Product product)
     {
-        var user = await _userManager.GetUserAsync(User);
+        var userId = _userManager.GetUserId(User);
+        var farmer = await _context.Farmers.FirstOrDefaultAsync(f => f.UserId == userId);
 
-        if (ModelState.IsValid && user != null)
+        if (farmer == null)
         {
-            product.FarmerId = user.Id;
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("FarmerProductList");
+            // Redirect to error page if the farmer is not found
+            return RedirectToAction("Error", "Home");
         }
 
-        return View(product);
+        product.FarmerId = farmer.Id;
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("FarmerProductList", "Farmer");
     }
 
-    // =======================
-    // FARMER: View Own Products
-    // =======================
-    [Authorize(Roles = "Farmer")]
-    public async Task<IActionResult> FarmerProductList()
-    {
-        var user = await _userManager.GetUserAsync(User);
-        var products = await _context.Products
-            .Where(p => p.FarmerId == user.Id)
-            .ToListAsync();
-
-        return View(products);
-    }
-
-    // =======================
-    // EMPLOYEE: Filter Products
-    // =======================
+    [HttpGet]
     [Authorize(Roles = "Employee")]
     public async Task<IActionResult> EmployeeProductList(string category, DateTime? startDate, DateTime? endDate)
     {
-        var products = _context.Products.Include(p => p.Farmer).AsQueryable();
+        var products = _context.Products
+            .Include(p => p.Farmer)
+            .AsQueryable();
 
         if (!string.IsNullOrEmpty(category))
             products = products.Where(p => p.Category == category);
 
         if (startDate.HasValue)
-            products = products.Where(p => p.ProductionDate >= startDate);
+            products = products.Where(p => p.ProductionDate >= startDate.Value);
 
         if (endDate.HasValue)
-            products = products.Where(p => p.ProductionDate <= endDate);
+            products = products.Where(p => p.ProductionDate <= endDate.Value);
 
         var result = await products.ToListAsync();
         return View(result);

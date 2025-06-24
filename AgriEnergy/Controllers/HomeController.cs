@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using AgriEnergy.Data;
-using System.Diagnostics;
 using AgriEnergy.Models;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 public class HomeController : Controller
 {
@@ -31,7 +33,7 @@ public class HomeController : Controller
             }
         }
 
-        return View(); // for unauthenticated users
+        return View();
     }
 
     public IActionResult Privacy()
@@ -42,6 +44,9 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        });
     }
 }

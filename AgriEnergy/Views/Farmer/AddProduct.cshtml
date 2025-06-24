@@ -1,17 +1,48 @@
-﻿@model Product
+﻿@model AgriEnergy.Models.Product
 
-<form asp-action="AddProduct" method="post">
-    <div>
-        <label>Name</label>
-        <input asp-for="Name" />
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div style="border-radius: 1rem; box-shadow: 0 0 10px rgba(0,0,0,0.1); padding: 2rem; background-color: #fff;">
+        <h3 class="mb-4">Add New Product</h3>
+
+        <form asp-action="AddProduct" method="post">
+            <div style="margin-bottom: 1rem;">
+                <label asp-for="Name" style="display:block; font-weight:bold;">Product Name</label>
+                <input asp-for="Name" style="width: 100%; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc;" />
+                <span asp-validation-for="Name" style="color:red; font-size: 0.8rem;"></span>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label asp-for="Category" style="display:block; font-weight:bold;">Category</label>
+                <input asp-for="Category" style="width: 100%; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc;" />
+                <span asp-validation-for="Category" style="color:red; font-size: 0.8rem;"></span>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label asp-for="ProductionDate" style="display:block; font-weight:bold;">Production Date</label>
+                <input asp-for="ProductionDate" type="date" style="width: 100%; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc;" />
+                <span asp-validation-for="ProductionDate" style="color:red; font-size: 0.8rem;"></span>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <button type="submit" style="width: 100%; background-color: #198754; color: white; padding: 0.75rem; border: none; border-radius: 50px; font-weight: bold;">
+                    Save Product
+                </button>
+            </div>
+        </form>
+
+        <div>
+            <a href="@Url.Action("FarmerProducts", "Farmer")"
+               style="display: block; text-align: center; background-color: #198754; color: white; padding: 0.75rem; border-radius: 50px; text-decoration: none; font-weight: bold;">
+                View My Products
+            </a>
+        </div>
     </div>
-    <div>
-        <label>Category</label>
-        <input asp-for="Category" />
-    </div>
-    <div>
-        <label>Production Date</label>
-        <input asp-for="ProductionDate" type="date" />
-    </div>
-    <button type="submit">Add Product</button>
-</form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

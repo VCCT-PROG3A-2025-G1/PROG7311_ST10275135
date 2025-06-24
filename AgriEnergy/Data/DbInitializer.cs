@@ -19,7 +19,7 @@ namespace AgriEnergy.Data
 
             context.Database.EnsureCreated();
 
-            // Seed roles
+           
             string[] roles = { "Farmer", "Employee" };
             foreach (var role in roles)
             {
@@ -27,26 +27,25 @@ namespace AgriEnergy.Data
                     await roleManager.CreateAsync(new IdentityRole(role));
             }
 
-            // Seed a Farmer user
-            var farmerUser = new UserApplication { UserName = "farmer1@demo.com", Email = "farmer1@demo.com", Role = "Farmer", EmailConfirmed = true };
+            var farmerUser = new UserApplication { UserName = "Soyamapango@gmail.com", Email = "Soyamapango@gmail.com", Role = "Farmer", EmailConfirmed = true };
             if (userManager.Users.All(u => u.UserName != farmerUser.UserName))
             {
-                await userManager.CreateAsync(farmerUser, "Password123!");
+                await userManager.CreateAsync(farmerUser, "P@ssword222!");
                 await userManager.AddToRoleAsync(farmerUser, "Farmer");
 
-                var farmer = new Farmer { Name = "John Doe", Location = "Limpopo", UserId = farmerUser.Id };
+                var farmer = new Farmer { Name = "Khanya Pango", Location = "KWT", UserId = farmerUser.Id };
                 context.Farmers.Add(farmer);
                 context.Products.AddRange(
-                    new Product { Name = "Tomatoes", Category = "Vegetables", ProductionDate = DateTime.Now.AddDays(-10), Farmer = farmer },
-                    new Product { Name = "Spinach", Category = "Vegetables", ProductionDate = DateTime.Now.AddDays(-7), Farmer = farmer }
+                    new Product { Name = "Carrot", Category = "Vegetables", ProductionDate = DateTime.Now.AddDays(-10), Farmer = farmer },
+                    new Product { Name = "Potatoes", Category = "Vegetables", ProductionDate = DateTime.Now.AddDays(-7), Farmer = farmer }
                 );
             }
 
-            // Seed an Employee user
-            var employeeUser = new UserApplication { UserName = "employee1@demo.com", Email = "employee1@demo.com", Role = "Employee", EmailConfirmed = true };
+          
+            var employeeUser = new UserApplication { UserName = "employee1@gmail.com", Email = "employee1@gmail.com", Role = "Employee", EmailConfirmed = true };
             if (userManager.Users.All(u => u.UserName != employeeUser.UserName))
             {
-                await userManager.CreateAsync(employeeUser, "Password123!");
+                await userManager.CreateAsync(employeeUser, "P@ssword222!");
                 await userManager.AddToRoleAsync(employeeUser, "Employee");
             }
 

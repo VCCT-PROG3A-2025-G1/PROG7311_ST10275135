@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Farmer Dashboard";
+    var userName = User.Identity.Name;
+}
+
+<div class="container mt-5" style="max-width: 700px;">
+    <div class="card shadow-sm rounded-4 p-4">
+        <h2 class="mb-4">Welcome, @userName 👨‍🌾</h2>
+
+        <div class="d-grid gap-3">
+            <a href="@Url.Action("AddProduct", "Farmer")"
+               class="btn btn-success rounded-pill text-white fw-bold text-decoration-none">
+                ➕ Add Product
+            </a>
+
+            <a href="@Url.Action("FarmerProducts", "Farmer")"
+               class="btn btn-success rounded-pill text-white fw-bold text-decoration-none">
+                📦 View My Products
+            </a>
+        </div>
+    </div>
+</div>

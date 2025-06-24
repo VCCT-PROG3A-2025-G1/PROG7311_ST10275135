@@ -1,22 +1,39 @@
-﻿
-<h2>Products for @Model.FarmerName</h2>
+﻿@model AgriEnergy.Models.FarmerProductsViewModel
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Production Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model.Products)
-        {
+@{
+    ViewData["Title"] = "My Products";
+}
+
+<!--<h2>@Model.FarmerName's Products</h2>-->
+
+@if (Model.Products == null || !Model.Products.Any())
+{
+    <p>You have not added any products yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@product.Name</td>
-                <td>@product.Category</td>
-                <td>@product.ProductionDate.ToShortDateString()</td>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Production Date</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Category</td>
+                    <td>@product.ProductionDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="DeleteProduct" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

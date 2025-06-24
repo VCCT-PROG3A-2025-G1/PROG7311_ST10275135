@@ -1,11 +1,12 @@
-﻿using AgriEnergy.Models;
+﻿using System.Collections.Generic;
 
-
-public class FarmerProductsViewModel
+namespace AgriEnergy.Models
 {
-   
-        public List<Product> Products { get; set; } = new(); 
-        public string? FarmerName { get; set; } 
-    
-
+    public class FarmerProductsViewModel
+    {
+        public List<Product> Products { get; set; } = new List<Product>();
+        public string? FarmerName { get; set; }
+    }
 }
+
+

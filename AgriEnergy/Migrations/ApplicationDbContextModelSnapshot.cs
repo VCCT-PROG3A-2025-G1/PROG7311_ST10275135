@@ -44,7 +44,7 @@ namespace AgriEnergy.Migrations
 
             modelBuilder.Entity("AgriEnergy.Models.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -52,11 +52,7 @@ namespace AgriEnergy.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FarmerId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("FarmerId1")
+                    b.Property<int>("FarmerId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -66,9 +62,9 @@ namespace AgriEnergy.Migrations
                     b.Property<DateTime>("ProductionDate")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("FarmerId1");
+                    b.HasIndex("FarmerId");
 
                     b.ToTable("Products");
                 });
@@ -288,7 +284,7 @@ namespace AgriEnergy.Migrations
                 {
                     b.HasOne("AgriEnergy.Models.Farmer", "Farmer")
                         .WithMany("Products")
-                        .HasForeignKey("FarmerId1")
+                        .HasForeignKey("FarmerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

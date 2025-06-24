@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using AgriEnergy.Models;
 using AgriEnergy.ViewModels;
 using AgriEnergy.Data;
-
-
+using System.Threading.Tasks;
 
 public class AccountController : Controller
 {
@@ -31,7 +30,6 @@ public class AccountController : Controller
         if (!ModelState.IsValid)
             return View(model);
 
-      
         var user = new UserApplication
         {
             UserName = model.Email,
@@ -39,17 +37,13 @@ public class AccountController : Controller
             Role = model.Role
         };
 
-       
         var result = await _userManager.CreateAsync(user, model.Password);
 
         if (result.Succeeded)
         {
-           
             await _userManager.AddToRoleAsync(user, model.Role);
-
             await _signInManager.SignInAsync(user, isPersistent: false);
 
-            
             if (model.Role == "Farmer")
             {
                 var farmer = new Farmer
@@ -59,25 +53,19 @@ public class AccountController : Controller
                     UserId = user.Id
                 };
 
-                
                 _context.Farmers.Add(farmer);
                 await _context.SaveChangesAsync();
 
-                
                 return RedirectToAction("FarmerProducts", "Farmer");
             }
 
-            
             if (model.Role == "Employee")
             {
-                
                 return RedirectToAction("Dashboard", "Employee");
             }
 
-            
             return RedirectToAction("Index", "Home");
         }
-        
 
         foreach (var error in result.Errors)
         {
@@ -87,14 +75,14 @@ public class AccountController : Controller
         return View(model);
     }
 
-
     [HttpGet]
     public IActionResult Login() => View();
 
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
-        if (!ModelState.IsValid) return View(model);
+        if (!ModelState.IsValid)
+            return View(model);
 
         var user = await _userManager.FindByEmailAsync(model.Email);
         if (user == null)
@@ -110,7 +98,7 @@ public class AccountController : Controller
             var roles = await _userManager.GetRolesAsync(user);
 
             if (roles.Contains("Farmer"))
-                return RedirectToAction("FarmerProducts", "Farmer");
+                return RedirectToAction("Dashboard", "Farmer");
 
             if (roles.Contains("Employee"))
                 return RedirectToAction("Dashboard", "Employee");
@@ -121,8 +109,4 @@ public class AccountController : Controller
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         return View(model);
     }
-
-
-
-    
 }

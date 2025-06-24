@@ -15,12 +15,7 @@
                 <a class="btn btn-outline-success" asp-controller="Account" asp-action="Register">Register</a>
             </div>
         </div>
-        @if (User.IsInRole("Farmer"))
-        {
-            <li><a asp-controller="Farmer" asp-action="MyProducts">My Products</a></li>
-        }
-
-    </nav>
+       </nav>
 
     <div class="container">
         @RenderBody()
