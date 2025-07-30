@@ -76,8 +76,9 @@ public class EmployeeController : Controller
     {
         var products = _context.Products.AsQueryable();
 
-        if (!string.IsNullOrEmpty(category))
-            products = products.Where(p => p.Category == category);
+        if (!string.IsNullOrWhiteSpace(category))
+            products = products.Where(p => !string.IsNullOrEmpty(p.Category) &&
+                                           p.Category.ToLower().Contains(category.ToLower()));
 
         if (startDate.HasValue)
             products = products.Where(p => p.ProductionDate >= startDate.Value);
@@ -85,6 +86,8 @@ public class EmployeeController : Controller
         if (endDate.HasValue)
             products = products.Where(p => p.ProductionDate <= endDate.Value);
 
-        return View(products.ToList());
+        var result = products.ToList();
+
+        return View(result);
     }
 }
