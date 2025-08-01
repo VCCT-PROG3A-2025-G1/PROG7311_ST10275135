@@ -10,6 +10,7 @@ Employees can view all farmers and filter products by:
 Farmer
 Category
 Production date range
+Discussion Forum
 
 Overview
 This is a web-based prototype application for the Agri-Energy Connect Platform. It allows Farmers and Employees to manage agricultural product data using a secure login system.
