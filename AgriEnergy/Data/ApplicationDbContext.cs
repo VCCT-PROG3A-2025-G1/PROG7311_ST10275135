@@ -11,5 +11,9 @@ namespace AgriEnergy.Data
 
         public DbSet<Farmer> Farmers { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ForumModels> ForumModels { get; set; }
+
+
+
     }
 }

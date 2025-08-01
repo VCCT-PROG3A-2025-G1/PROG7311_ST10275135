@@ -1,0 +1,36 @@
+﻿@model ForumModels
+
+@{
+    ViewData["Title"] = "Start New Discussion";
+}
+
+<div class="container mt-5" style="max-width: 700px;">
+    <div class="card shadow-sm rounded-4 p-4">
+        <h2 class="mb-4">➕ Start New Discussion</h2>
+
+        <form method="post" asp-action="Create" asp-controller="Forum">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Content" class="form-label"></label>
+                <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success rounded-pill fw-bold">Create Post</button>
+            <a href="@Url.Action("Index", "Forum")" class="btn btn-outline-secondary rounded-pill fw-bold">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

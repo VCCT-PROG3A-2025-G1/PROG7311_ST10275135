@@ -1,0 +1,32 @@
+﻿@model List<ForumModels>
+
+<div class="container mt-5" style="max-width: 900px;">
+    <h2 class="mb-4 text-center">💬 Discussion Forum</h2>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="@Url.Action("Create", "Forum")" class="btn btn-success rounded-pill fw-bold">
+            ➕ Start New Discussion
+        </a>
+    </div>
+
+    @if (Model.Any())
+    {
+        foreach (var post in Model)
+        {
+            <div class="card shadow-sm mb-4 rounded-4 border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-success fw-bold">@post.Title</h4>
+                    <p class="text-muted mb-0">
+                        Posted by <strong>@post.Author</strong> on @post.CreatedAt.ToString("dd MMM yyyy, HH:mm")
+                    </p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning text-center rounded-4">
+            No discussions yet. Be the first to start a conversation! 🌱
+        </div>
+    }
+</div>
